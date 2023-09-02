@@ -1,0 +1,8 @@
+server:
+  port: 2003
+spring:
+  main:
+    allow-circular-references: true
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss

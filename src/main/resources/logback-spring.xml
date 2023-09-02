@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProfile name ="dev">
+		<property name="HOME" value="/var/javaserver/log/offline/gisGateway" />
+	</springProfile>
+	<springProfile name ="prod">
+		<property name="HOME" value="/var/javaserver/log/gisGateway" />
+	</springProfile>
+	<!-- You can override this to have a custom pattern -->
+	<property name="CONSOLE_LOG_PATTERN"
+		value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(-){faint} %clr(${PID}[%15.15t]){magenta} %clr([%X{remoteIp}:%X{remotePort}]){yellow}  %clr(%-40.40logger{39}){cyan}   %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" />
+	<!-- Appender to log to console -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- Minimum logging level to be presented in the console logs -->
+			<level>DEBUG</level>
+		</filter>
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+	<!-- Appender to log to file -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${HOME}/app.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${HOME}/app.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<maxHistory>4</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+
+	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>2048</queueSize>
+		<appender-ref ref="FILE" />
+	</appender>
+
+	<!--	调整rocketMq日志 -->
+	<logger name = "RocketmqClient" level="ERROR" />
+	<logger name = "RocketmqRemoting" level="ERROR" />
+	<logger name = "RocketmqRemoting" level="ERROR" />
+	<logger name= "RocketmqCommon" level="ERROR" />
+
+
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="FILE" />
+<!--		<appender-ref ref="KAFKA" />-->
+	</root>
+</configuration>
