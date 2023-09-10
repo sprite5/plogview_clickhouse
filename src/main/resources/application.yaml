@@ -5,4 +5,11 @@ spring:
     allow-circular-references: true
   jackson:
     time-zone: Asia/Shanghai
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm
+
+clickHouse:
+  url: "http://localdb.chebaidu.net:8123"
+  database: "default"
+  table: "log"
+  user: "default"
+  passwd: "default"

@@ -37,9 +37,28 @@
         </dependency>
 
         <dependency>
+            <groupId>com.clickhouse</groupId>
+            <!-- or clickhouse-grpc-client if you prefer gRPC -->
+            <artifactId>clickhouse-http-client</artifactId>
+            <version>0.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-json</artifactId>
+            <version>5.8.5</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

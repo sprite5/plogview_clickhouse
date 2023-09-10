@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="asserts/css/index.css">
 </head>
 <body>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
 <nav class="container-fluid">
     <ul>
         <li>
@@ -45,68 +46,81 @@
         </li>
     </ul>
 </nav>
-<main class="container" id="logs">
+<main class="container" id="logs" x-data="app()">
     <article>
         <div id="searchArea" class="grid">
             <div>
                 <label for="startDate">
-                    StartTime </label>
-                <input type="date" id="startDate" name="startDate" placeholder="开始日期">
-                <select id="env" required>
-                    <option value="webProd">webProd</option>
-                    <option value="webDev">webDeb</option>
-                    <option value="gpsProd">gpsProd</option>
-                    <option value="gpsDev" selected>gpsDev</option>
+                    StartTime: </label>
+                <input type="date" id="startDate" name="startDate" x-model="data.searchForm.startDate" placeholder="开始日期">
+                <select id="server" x-model="data.searchForm.server">
+                    <option value="ldd_prod">ldd_prod</option>
+                    <option value="ldd_dev">ldd_dev</option>
+                    <option value="gps_prod" selected>gps_prod</option>
+                    <option value="pgs_dev">gps_dev</option>
                 </select>
             </div>
             <div>
                 <label for="startTime">
                     &nbsp;</label>
-                <input type="time" id="startTime" name="startTime" required>
-                <input type="text" id="" name="traceId" placeholder="traceId">
-            </div>
-            <div>
-                <label for="endDate">
-                    EndTime </label>
-                <input type="date" id="endDate" name="startDate" placeholder="结束日期" required>
-                <input grid-row=2 type="text" id="searchKey" name="searchKey" placeholder="content" required>
-            </div>
-            <div>
-                <label for="endDate">
-                    &nbsp;</label>
-                <input type="time" id="endTime" name="startTime" required>
-                <input type="button" id="search" role="button" value="Search">
-            </div>
-        </div>
+                <input type="time" id="startTime" name="startTime" x-model="data.searchForm.startTime">
+                <select id="level" x-model="data.searchForm.level">
+                    <option value="">level</option>
+                    <option value="INFO">INFO</option>
+                    <option value="WARN">WARN</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="DEBUG">DEBUG</option>
+                </select>
 
-        <pre>
-            <figure>
-				<table role="grid">
-				  <thead>
-				    <tr>
-				      <th scope="col">#</th>
-					   <th scope="col">content</th>
-					   <th scope="col"><small>view</small></th>
-				  </tr>
-			  </thead>
-			  <tbody>
-				  <tr>
-				        <th scope="row">1</th>
-					   <td>Cell111111111d22222222222222222221111111asdvasdvasfasdfasdfadfasdfasd</td>
-					   <td><a href="#" class="secondary">...</a></td>
-				   </tr>
-				    </tbody>
-		  	  </table>
-            </figure>
-		  </pre>
-        <footer>
+            </div>
             <div>
+                <label for="endDate">
+                    EndTime: </label>
+                <input type="date" id="endDate" name="startDate"  placeholder="结束日期"  x-model="data.searchForm.endDate">
+                <input type="text" id="" name="traceId" x-model="data.searchForm.traceId" placeholder="traceId">
+            </div>
+            <div>
+                <label for="endTime">
+                    &nbsp;</label>
+                <input type="time" id="endTime" name="startTime" x-model="data.searchForm.endTime">
+                <input type="text" id="searchKey" name="searchKey" placeholder="content" x-model="data.searchForm.searchKey" >
+            </div>
+            <div>
+
+                <label for="prod">
+                    &nbsp;</label>
+                <input type="text" id="prod" name="prod" placeholder="prod"  style="width: 0;--border-color:0xfff;">
+                <input type="button" id="search" role="button" value="Search" @click="search">
+            </div>
+
+        </div>
+        <hr>
+
+         <figure>
+				<table role="grid">
+<!--				  <thead>-->
+<!--				    <tr>-->
+
+<!--				  </tr>-->
+<!--			  </thead>-->
+			  <tbody>
+                  <template x-for="(item, index) in data.tableData.list" :key="index">
+                      <tr>
+                          <!--替换无法显示的字符，缩短空格 -->
+                          <td  x-text="item.message.replaceAll('�','').replaceAll('  ',' ')"></td>
+                      </tr>
+                  </template>
+
+                </tbody>
+		  	  </table>
+         </figure>
+        <hr>
+            <div class="page">
                 <small>1-20 of 100</small> &nbsp;&nbsp;
                 <a href="#" class="secondary">&lt; </a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="#" class="secondary">&gt; </a>
             </div>
-        </footer>
     </article>
     <footer>
         <hr>
@@ -120,4 +134,10 @@
 </main>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script>
+    var DateTime = dayjs;
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.5.0/dist/axios.min.js"></script>
+<script src="asserts/js/index.js"></script>
 </html>
