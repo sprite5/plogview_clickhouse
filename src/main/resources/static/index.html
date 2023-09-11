@@ -18,7 +18,7 @@
 <nav class="container-fluid">
     <ul>
         <li>
-            <a href="https://picocss.com" aria-label="Back home">
+            <a href="/" aria-label="Back home">
                 <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 1000 1000" height="56px">
                     <path fill="currentColor"
@@ -29,9 +29,6 @@
         <li>plogView</li>
     </ul>
     <ul>
-        <li>
-            <a href="https://picocss.com#examples" class="secondary">Examples</a>
-        </li>
         <li>
             <a href="" class="secondary">Docs</a>
         </li>
@@ -65,7 +62,7 @@
                     &nbsp;</label>
                 <input type="time" id="startTime" name="startTime" x-model="data.searchForm.startTime">
                 <select id="level" x-model="data.searchForm.level">
-                    <option value="">level</option>
+                    <option value=""></option>
                     <option value="INFO">INFO</option>
                     <option value="WARN">WARN</option>
                     <option value="ERROR">ERROR</option>
@@ -87,9 +84,9 @@
             </div>
             <div>
 
-                <label for="prod">
+                <label for="reset">
                     &nbsp;</label>
-                <input type="text" id="prod" name="prod" placeholder="prod"  style="width: 0;--border-color:0xfff;">
+                <input type="button" id="reset" role="button" value="RestTime" @click="reset">
                 <input type="button" id="search" role="button" value="Search" @click="search">
             </div>
 
@@ -116,10 +113,11 @@
          </figure>
         <hr>
             <div class="page">
-                <small>1-20 of 100</small> &nbsp;&nbsp;
-                <a href="#" class="secondary">&lt; </a>
+                <small x-text="data.tableData.pageNum?'Page ' + data.tableData.pageNum + ' of ' +  Math.ceil(data.tableData.count/data.tableData.size):'Page '":></small> &nbsp;&nbsp;
+                &nbsp;&nbsp;
+                <a href="javascript:void(0)" class="secondary" @click="changePage(true)">&lt; </a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="#" class="secondary">&gt; </a>
+                <a href="javascript:void(0)" class="secondary" @click="changePage(false)">&gt; </a>
             </div>
     </article>
     <footer>

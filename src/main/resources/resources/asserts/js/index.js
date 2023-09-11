@@ -11,6 +11,9 @@ function app() {
         search:function(){
             _search(this.data)
         },
+        reset:function(){
+            _reset(this.data)
+        },
         /**
          *
          * @param isPrev <boolean>
@@ -22,9 +25,7 @@ function app() {
 }
 
 function _init(){
-    const now =  DateTime()
-
-
+    var now =  DateTime()
     return {
         searchForm:{
             startDate:now.format('YYYY-MM-DD'),
@@ -36,7 +37,7 @@ function _init(){
             traceId:"",
             searchKey:"",
             pageNum:1,
-            pageSize:20
+            pageSize:10
         },
         searchParams:{},
         tableData:{
@@ -45,17 +46,26 @@ function _init(){
     }
 }
 
-function _search(data){
-    let searchForm = data.searchForm;
-    let startDateTime = searchForm.startDate + " " + searchForm.startTime;
-    let endDateTime = searchForm.endDate + " " + searchForm.endTime;
-    if(!DateTime(startDateTime).isValid() || !DateTime(endDateTime).isValid()){
-        alert("time error");return;
-    }
-    data.searchParams = {
-        startDateTime:startDateTime,
-        endDateTime:endDateTime,
-        ... searchForm
+function _reset(data){
+    let now =  DateTime()
+    data.searchForm.endDate = now.format('YYYY-MM-DD');
+    data.searchForm.endTime = now.format("HH:mm");
+}
+
+function _search(data,isChangePage){
+    if(!isChangePage) {
+        let searchForm = data.searchForm;
+        let startDateTime = searchForm.startDate + " " + searchForm.startTime;
+        let endDateTime = searchForm.endDate + " " + searchForm.endTime;
+        if (!DateTime(startDateTime).isValid() || !DateTime(endDateTime).isValid()) {
+            alert("time error");
+            return;
+        }
+        data.searchParams = {
+            startDateTime: startDateTime,
+            endDateTime: endDateTime,
+            ...searchForm
+        }
     }
 
     axios.post("/api/searchLog", data.searchParams)
@@ -70,5 +80,8 @@ function _search(data){
 
 
 function  _changePage(isPrev,data){
-
+    if(isPrev && data.searchParams.pageNum<2) return;
+    let pageNum = data.searchParams.pageNum
+    data.searchParams.pageNum = isPrev ? pageNum-1:pageNum +1;
+    _search(data,true)
 }

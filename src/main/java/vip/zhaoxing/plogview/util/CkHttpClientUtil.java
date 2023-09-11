@@ -3,6 +3,7 @@ package vip.zhaoxing.plogview.util;
 import com.clickhouse.client.*;
 import com.clickhouse.client.config.ClickHouseClientOption;
 import com.clickhouse.data.ClickHouseFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vip.zhaoxing.plogview.config.CkConfig;
 
@@ -11,6 +12,8 @@ import java.util.Map;
 
 @Service
 public class CkHttpClientUtil {
+    @Autowired
+    private CkConfig ignore;
 
     private ClickHouseNodes servers;
     private static ClickHouseClient client;
