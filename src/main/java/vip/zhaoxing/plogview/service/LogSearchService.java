@@ -69,7 +69,6 @@ public class LogSearchService {
                 .append(endTImeStr).append("' " )
                 .append(" and ")
                 .append(" server = '").append(dto.getServer()).append("' ");
-
         if(StringUtils.isNotBlank(dto.getTraceId())) sbForSql.append(" and ").append(" traceId = '").append(dto.getTraceId()).append("' ");
         if(StringUtils.isNotBlank(dto.getLevel())) sbForSql.append(" and ").append(" level = '").append(dto.getLevel()).append("' ");
         if(StringUtils.isNotBlank(dto.getSearchKey())) sbForSql.append(" and ").append(" simpleMsg like '%").append(dto.getSearchKey()).append("%' ");
