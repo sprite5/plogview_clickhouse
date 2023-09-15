@@ -82,7 +82,7 @@ function _search(data,isChangePage){
 function  _changePage(isPrev,data){
     let currentPageNum = data.searchParams.pageNum
     if(isPrev && currentPageNum<2) return;
-    if(!isPrev && currentPageNum>=data.tableData.pageSize ) return;
+    if(!isPrev && currentPageNum >= Math.ceil(data.tableData.count/data.tableData.pageSize)) return;
     data.searchParams.pageNum = isPrev ? currentPageNum-1:currentPageNum +1;
     _search(data,true)
 }

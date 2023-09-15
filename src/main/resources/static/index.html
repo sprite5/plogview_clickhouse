@@ -113,7 +113,9 @@
          </figure>
         <hr>
             <div class="page">
-                <small x-text="data.tableData.pageNum?'Page ' + data.tableData.pageNum + ' of ' +  Math.ceil(data.tableData.count/data.tableData.size):' Page '"></small> &nbsp;&nbsp;
+                <small x-text="data.tableData.pageNum
+                    ?'Page ' + (data.tableData.count?data.tableData.pageNum:'0') + ' of ' + Math.ceil(data.tableData.count/data.tableData.pageSize)
+                    :' Pages '"></small> &nbsp;&nbsp;
                 &nbsp;&nbsp;
                 <a href="javascript:void(0)" class="secondary" @click="changePage(true)">&lt; </a>
                 &nbsp;&nbsp;&nbsp;
