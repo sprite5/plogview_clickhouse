@@ -40,6 +40,7 @@ function _init(){
             pageSize:10
         },
         searchParams:{},
+        process:false,
         tableData:{
             list:[]
         },
@@ -53,6 +54,7 @@ function _reset(data){
 }
 
 function _search(data,isChangePage){
+    if(data.process) return;
     if(!isChangePage) {
         let searchForm = data.searchForm;
         let startDateTime = searchForm.startDate + " " + searchForm.startTime;
@@ -67,10 +69,11 @@ function _search(data,isChangePage){
             ...searchForm
         }
     }
-
+    data.process = true;
     axios.post("/api/searchLog", data.searchParams)
         .then(function (response){
             data.tableData = {...response.data}
+            data.process = false;
         })
     console.log(data)
 
@@ -80,6 +83,7 @@ function _search(data,isChangePage){
 
 
 function  _changePage(isPrev,data){
+    if(data.process) return;
     let currentPageNum = data.searchParams.pageNum
     if(isPrev && currentPageNum<2) return;
     if(!isPrev && currentPageNum >= Math.ceil(data.tableData.count/data.tableData.pageSize)) return;
