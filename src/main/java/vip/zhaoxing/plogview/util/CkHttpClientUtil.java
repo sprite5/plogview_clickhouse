@@ -3,6 +3,7 @@ package vip.zhaoxing.plogview.util;
 import com.clickhouse.client.*;
 import com.clickhouse.client.config.ClickHouseClientOption;
 import com.clickhouse.data.ClickHouseFormat;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vip.zhaoxing.plogview.config.CkConfig;
@@ -11,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class CkHttpClientUtil {
     @Autowired
     private CkConfig ignore;
@@ -39,6 +41,7 @@ public class CkHttpClientUtil {
                     .params(params)
                     .executeAndWait();
         }catch (ClickHouseException e){
+            log.error("search error,sql:{}",e);
             return null;
         }
         return resp;

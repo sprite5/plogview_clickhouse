@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
-	<springProfile name ="dev">
-		<property name="HOME" value="/var/javaserver/log/offline/gisGateway" />
-	</springProfile>
-	<springProfile name ="prod">
-		<property name="HOME" value="/var/javaserver/log/gisGateway" />
-	</springProfile>
+	<property name="HOME" value="/var/javaserver/log/plogview/" />
 	<!-- You can override this to have a custom pattern -->
 	<property name="CONSOLE_LOG_PATTERN"
 		value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(-){faint} %clr(${PID}[%15.15t]){magenta} %clr([%X{remoteIp}:%X{remotePort}]){yellow}  %clr(%-40.40logger{39}){cyan}   %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" />
@@ -41,17 +36,10 @@
 		<appender-ref ref="FILE" />
 	</appender>
 
-	<!--	调整rocketMq日志 -->
-	<logger name = "RocketmqClient" level="ERROR" />
-	<logger name = "RocketmqRemoting" level="ERROR" />
-	<logger name = "RocketmqRemoting" level="ERROR" />
-	<logger name= "RocketmqCommon" level="ERROR" />
-
 
 
 	<root level="INFO">
 		<appender-ref ref="console" />
 		<appender-ref ref="FILE" />
-<!--		<appender-ref ref="KAFKA" />-->
 	</root>
 </configuration>

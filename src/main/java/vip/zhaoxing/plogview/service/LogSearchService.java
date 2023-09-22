@@ -78,14 +78,4 @@ public class LogSearchService {
         sbForSql.append(" limit ").append(dto.getPageSize()).append(" offset ").append(offset);
         return Tuple.of(sbForCount.toString(),sbForSql.toString());
     }
-
-    public static void main(String[] args) {
-        SearchLogDTO searchLogDTO = new SearchLogDTO();
-        searchLogDTO.setStartDateTime(DateUtil.parseDateTime("2023-09-08 11:00:00"));
-        searchLogDTO.setEndDateTime(DateUtil.parseDateTime("2023-09-08 12:00:00"));
-        searchLogDTO.setServer("gps_prod");
-        searchLogDTO.setPageSize(20);
-        searchLogDTO.setPageNum(1);
-        //System.out.println(genSqlBySearchDTO(searchLogDTO));
-    }
 }
