@@ -1,4 +1,3 @@
-/** yunfile.js*/
 "use strict";
 
 /**
